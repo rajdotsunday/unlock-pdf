@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="hi">
 <head>
@@ -177,6 +178,11 @@ UNLOCK PDF
 PDF select karke password enter karein.
 </div>
 
+<div id="refreshTimer"
+style="display:none;color:#6d28d9;font-weight:bold;margin-top:12px">
+Page automatically refresh hoga: <span id="timer">60</span> seconds
+</div>
+
 </div>
 
 <div class="panel" id="results">
@@ -248,6 +254,33 @@ function safeName(name){
 
 }
 
+function startAutoRefresh(){
+
+ let seconds = 30;
+
+ const box = document.getElementById("refreshTimer");
+ const timer = document.getElementById("timer");
+
+ box.style.display = "block";
+ timer.textContent = seconds;
+
+ const countdown = setInterval(()=>{
+
+  seconds--;
+
+  timer.textContent = seconds;
+
+  if(seconds <= 0){
+
+   clearInterval(countdown);
+   location.reload();
+
+  }
+
+ },50);
+
+}
+
 
 /* MAIN UNLOCK */
 
@@ -293,8 +326,7 @@ $("unlockBtn").addEventListener("click",async()=>{
   $("status").textContent="Loading PDF Unlock Engine...";
 
   if(!toolkit){
-
-   toolkit = await createPdfToolkit();
+toolkit = await createPdfToolkit();
 
   }
 
@@ -389,7 +421,6 @@ let reason = error.message || String(error);
 
 console.error("PDF Unlock Error:", error);
 
-
     report.push("FAILED: "+file.name+" - "+reason);
 
     $("entries").innerHTML+=`
@@ -474,6 +505,7 @@ console.error("PDF Unlock Error:", error);
 
   $("status").textContent=
    "Checking Complete! "+success+" PDF unlocked, "+failed+" failed.";
+   startAutoRefresh();
 
  }catch(error){
 
