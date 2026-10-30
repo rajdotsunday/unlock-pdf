@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="hi">
 <head>
@@ -295,12 +294,7 @@ $("unlockBtn").addEventListener("click",async()=>{
 
   if(!toolkit){
 
-   toolkit = await createPdfToolkit({
-
-    wasmUrl:
-    "https://cdn.jsdelivr.net/npm/pdfstudio@0.4.0/dist/wasm/qpdf.wasm"
-
-   });
+   toolkit = await createPdfToolkit();
 
   }
 
