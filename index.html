@@ -204,7 +204,7 @@ DOWNLOAD ALL PDF (ZIP)
 <script type="module">
 
 import { createPdfToolkit } from
-"https://esm.sh/pdfstudio@0.4.0";
+"https://cdn.jsdelivr.net/npm/pdfstudio@0.4.0/+esm";
 
 const $ = id => document.getElementById(id);
 
@@ -326,7 +326,9 @@ $("unlockBtn").addEventListener("click",async()=>{
   $("status").textContent="Loading PDF Unlock Engine...";
 
   if(!toolkit){
-toolkit = await createPdfToolkit();
+toolkit = await createPdfToolkit({
+  wasmUrl: "https://cdn.jsdelivr.net/npm/pdfstudio@0.4.0/dist/wasm/qpdf.wasm"
+});
 
   }
 
