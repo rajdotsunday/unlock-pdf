@@ -385,30 +385,10 @@ $("unlockBtn").addEventListener("click",async()=>{
      error.name+" "+error.message
     ).toLowerCase();
 
-    let reason="PDF unlock nahi ho payi.";
+let reason = error.message || String(error);
 
-    if(
-     message.includes("password") ||
-     message.includes("decrypt") ||
-     message.includes("invalid")
-    ){
+console.error("PDF Unlock Error:", error);
 
-     reason="Wrong password ya password verification failed.";
-
-    }else if(
-     message.includes("encrypt")
-    ){
-
-     reason="Unsupported PDF encryption.";
-
-    }else if(
-     message.includes("invalid pdf") ||
-     message.includes("corrupt")
-    ){
-
-     reason="PDF damaged ya invalid hai.";
-
-    }
 
     report.push("FAILED: "+file.name+" - "+reason);
 
